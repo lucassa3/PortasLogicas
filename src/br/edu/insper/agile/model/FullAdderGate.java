@@ -31,6 +31,14 @@ public class FullAdderGate extends LogicGate {
 		this.pinA = pinA;
 		this.pinB = pinB;
 		this.pinCarry = pinC;
+		
+		xor1 = new XorGate(pinA,pinB);
+		xor2 = new XorGate(new InputPin(xor1,0),pinCarry);
+		and1 = new AndGate(pinA, pinB);
+		and2 = new AndGate(pinB,pinCarry);
+		and3 = new AndGate(pinA,pinCarry);
+		or1 = new OrGate(new InputPin(and1,0),new InputPin(and2,0));
+		or2 = new OrGate(new InputPin(or1,0),new InputPin(and3,0));
 	}
 
 	

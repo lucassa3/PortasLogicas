@@ -9,7 +9,7 @@ public class AndGate extends LogicGate{
 		this.pinB = pinB;
 	}
 	
-	public void setPin(InputPin pinA, InputPin pinB){
+	public void setPin(InputPin pinA, InputPin pinB, InputPin pinC){
 		this.pinA = pinA;
 		this.pinB = pinB;
 	}

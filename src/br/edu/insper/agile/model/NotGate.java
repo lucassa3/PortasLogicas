@@ -8,9 +8,10 @@ public class NotGate extends LogicGate{
 	}
 	
 	
-	public void setPin(InputPin pinA,InputPin pinB){
+	public void setPin(InputPin pinA,InputPin pinB, InputPin pinC){
 		this.pinA = pinA;
 	}
+	
 	@Override
 	public InputPin getInputPin(int index) {
 		return pinA;

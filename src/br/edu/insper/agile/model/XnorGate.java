@@ -19,12 +19,17 @@ public class XnorGate extends LogicGate {
 		and4 = new AndGate(new InputPin(new Switch(!and2.getOutputValue(0)),0),new InputPin(new Switch(!and3.getOutputValue(0)),0));
 	}
 	
-	public void setPin(InputPin pinA, InputPin pinB){
+	public void setPin(InputPin pinA, InputPin pinB, InputPin pinC){
 		this.pinA = pinA;
 		this.pinB = pinB;
+		
+		//tenho que reconstruir todas as subportas
+		and1 = new AndGate(pinA, pinB);
+		and2 = new AndGate(pinA, new InputPin(new Switch(!and1.getOutputValue(0)),0));
+		and3 = new AndGate(pinB, new InputPin(new Switch(!and1.getOutputValue(0)),0));
+		and4 = new AndGate(new InputPin(new Switch(!and2.getOutputValue(0)),0),new InputPin(new Switch(!and3.getOutputValue(0)),0));
 	}
 
-	
 	
 	@Override
 	public InputPin getInputPin(int index) {

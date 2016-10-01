@@ -68,7 +68,7 @@ public class Screen extends JPanel implements ChangeListener, ActionListener {
 		this.add(this.gateSelector);
 		
 		this.changeListeners = new ArrayList<>(); //cria lista dos ouvidores...
-
+		this.actionListeners = new ArrayList<>(); //cria lista dos ouvidores...
 		
 	}
 	
@@ -115,25 +115,25 @@ public class Screen extends JPanel implements ChangeListener, ActionListener {
 		
 	}
 	@Override
-	public void stateChanged(ChangeEvent event) {
+	public void stateChanged(ChangeEvent event) { //funcao que vai contar para todos os que tiverem esta funcao os estados dos switches
 		String gate = (String) this.gateSelector.getSelectedItem();
 		boolean stateA = (boolean) this.SwitchA.isSelected(); //vai me devolver o estado do pinA
 		boolean stateB = (boolean) this.SwitchB.isSelected(); // " pinB
 		boolean stateC = (boolean) this.SwitchC.isSelected(); // " pinC
 
 		for(MainChangeListener listener: changeListeners) { //para todos os ouvidores da lista...
-			listener.stateChanged(stateA, stateB, stateC, gate); //...conta para cada um os estados desses elementos
+			listener.stateChanged(stateA, stateB, stateC); //... ATUALIZA FUNCAO QUE conta para cada um os estados desses elementos
 		}
 		
 		
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent event) {//funcao que vai contar para todos os que tiverem esta funcao o elemento selecionado na combobox
 		String gate = (String) this.gateSelector.getSelectedItem();
 		
 		for(MainActionListener listener: actionListeners) { //para todos os ouvidores da lista...
-			listener.actionPerformed(gate); //...conta para cada um os estados desses elementos
+			listener.actionPerformed(gate); //...ATUALIZA A FUNCAO QUE conta para cada um os estados desses elementos
 		}
 	}
 

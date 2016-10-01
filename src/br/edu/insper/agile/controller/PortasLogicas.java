@@ -16,7 +16,7 @@ public class PortasLogicas {
 				screen.addMainChangeListener(controller);
 				screen.addMainActionListener(controller);
 
-				JFrame frame = new JFrame("SwingDemo");
+				JFrame frame = new JFrame("Portas Logicas");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setResizable(false);
                 frame.setContentPane(screen);

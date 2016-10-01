@@ -15,9 +15,12 @@ public class HalfAdderGate extends LogicGate{
 		and1 = new AndGate(pinA,pinB);
 	}
 	
-	public void setPin(InputPin pinA, InputPin pinB){
+	public void setPin(InputPin pinA, InputPin pinB, InputPin pinC){
 		this.pinA = pinA;
 		this.pinB = pinB;
+		
+		xor1 = new XorGate(pinA,pinB);
+		and1 = new AndGate(pinA,pinB);
 	}
 
 	

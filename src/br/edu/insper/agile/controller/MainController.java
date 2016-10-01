@@ -24,55 +24,8 @@ public class MainController implements MainChangeListener, MainActionListener{
 	}
 
 	@Override
-	public void stateChanged(boolean a, boolean b,boolean c, String gates) {
-		this.gate_name = gates;
-		if (gate_name == "And") {
-			screen.enableSwitchA();
-			screen.enableSwitchB();
-			screen.disableSwitchC();
-			this.gate = new AndGate(new InputPin(new Switch(a),0),new InputPin(new Switch(b),1));
-		}
-		
-		else if (gate_name == "Full-Adder") {
-			screen.enableSwitchA();
-			screen.enableSwitchB();
-			screen.enableSwitchC();
-			this.gate = new FullAdderGate(new InputPin(new Switch(a),0),new InputPin(new Switch(b),1),new InputPin(new Switch(c),2));
-		}
-		else if (gate_name == "Half-Adder") {
-			screen.enableSwitchA();
-			screen.enableSwitchB();
-			screen.disableSwitchC();
-			this.gate = new HalfAdderGate(new InputPin(new Switch(a),0),new InputPin(new Switch(b),1));
-		}
-		else if (gate_name == "Not") {
-			screen.enableSwitchA();
-			screen.disableSwitchB();
-			screen.disableSwitchC();
-			this.gate = new NotGate(new InputPin(new Switch(a),0));
-		}
-		
-		else if (gate_name == "Or") {
-			screen.enableSwitchA();
-			screen.enableSwitchB();
-			screen.disableSwitchC();
-			this.gate = new OrGate(new InputPin(new Switch(a),0),new InputPin(new Switch(b),1));
-		}
-		
-		else if (gate_name == "Xnor") {
-			screen.enableSwitchA();
-			screen.enableSwitchB();
-			screen.disableSwitchC();
-			this.gate = new XnorGate(new InputPin(new Switch(a),0),new InputPin(new Switch(b),1));
-		}
-		
-		else if (gate_name == "Xor") {
-			screen.enableSwitchA();
-			screen.enableSwitchB();
-			screen.disableSwitchC();
-			this.gate = new XorGate(new InputPin(new Switch(a),0),new InputPin(new Switch(b),1));
-		}
-		
+	public void stateChanged(boolean a, boolean b,boolean c) {
+		gate.setPin(new InputPin(new Switch(a),0),new InputPin(new Switch(b),1),new InputPin(new Switch(c),2));
 		updateView();
 	}
 
@@ -85,6 +38,7 @@ public class MainController implements MainChangeListener, MainActionListener{
 			screen.disableSwitchC();
 			screen.clearFields();
 			this.gate = new AndGate(new InputPin(new Switch(false),0),new InputPin(new Switch(false),1));
+			updateView();
 		}
 		
 		else if (gate_name == "Full-Adder") {
@@ -93,6 +47,7 @@ public class MainController implements MainChangeListener, MainActionListener{
 			screen.enableSwitchC();
 			screen.clearFields();
 			this.gate = new FullAdderGate(new InputPin(new Switch(false),0),new InputPin(new Switch(false),1),new InputPin(new Switch(false),2));
+			updateView();
 		}
 		else if (gate_name == "Half-Adder") {
 			screen.enableSwitchA();
@@ -100,6 +55,7 @@ public class MainController implements MainChangeListener, MainActionListener{
 			screen.disableSwitchC();
 			screen.clearFields();
 			this.gate = new HalfAdderGate(new InputPin(new Switch(false),0),new InputPin(new Switch(false),1));
+			updateView();
 		}
 		else if (gate_name == "Not") {
 			screen.enableSwitchA();
@@ -107,6 +63,7 @@ public class MainController implements MainChangeListener, MainActionListener{
 			screen.disableSwitchC();
 			screen.clearFields();
 			this.gate = new NotGate(new InputPin(new Switch(false),0));
+			updateView();
 		}
 		
 		else if (gate_name == "Or") {
@@ -115,6 +72,7 @@ public class MainController implements MainChangeListener, MainActionListener{
 			screen.disableSwitchC();
 			screen.clearFields();
 			this.gate = new OrGate(new InputPin(new Switch(false),0),new InputPin(new Switch(false),1));
+			updateView();
 		}
 		
 		else if (gate_name == "Xnor") {
@@ -123,6 +81,7 @@ public class MainController implements MainChangeListener, MainActionListener{
 			screen.disableSwitchC();
 			screen.clearFields();
 			this.gate = new XnorGate(new InputPin(new Switch(false),0),new InputPin(new Switch(false),1));
+			updateView();
 		}
 		
 		else if (gate_name == "Xor") {
@@ -131,6 +90,7 @@ public class MainController implements MainChangeListener, MainActionListener{
 			screen.disableSwitchC();
 			screen.clearFields();
 			this.gate = new XorGate(new InputPin(new Switch(false),0),new InputPin(new Switch(false),1));
+			updateView();
 		}
 		
 	}
