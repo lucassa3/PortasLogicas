@@ -13,7 +13,8 @@ public class PortasLogicas {
 
 				MainController controller = new MainController(screen);
 
-				screen.addMainListener(controller);
+				screen.addMainChangeListener(controller);
+				screen.addMainActionListener(controller);
 
 				JFrame frame = new JFrame("SwingDemo");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

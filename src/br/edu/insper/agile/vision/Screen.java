@@ -1,6 +1,8 @@
 package br.edu.insper.agile.vision;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BoxLayout;
@@ -10,92 +12,129 @@ import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import br.edu.insper.agile.controller.MainListener;
+import br.edu.insper.agile.controller.MainActionListener;
+import br.edu.insper.agile.controller.MainChangeListener;
 
-public class Screen extends JPanel implements ChangeListener {
+public class Screen extends JPanel implements ChangeListener, ActionListener {
 	private static final long serialVersionUID = 1L;
 	
 	String[] gate_names;
 	private JComboBox<String> gateSelector;
 	
-	private JCheckBox inputPinA;
-	private JCheckBox inputPinB;
-	private JCheckBox inputPinC;
-	private JCheckBox outputPin;
-	private JCheckBox outputPinCa;
+	private JCheckBox SwitchA;
+	private JCheckBox SwitchB;
+	private JCheckBox SwitchC;
+	private JCheckBox Lamp;
+	private JCheckBox LampCa;
 	
-	private List<MainListener> listeners;
+	private List<MainChangeListener> changeListeners;
+	private List<MainActionListener> actionListeners;
 	
 	public Screen () {
 		
 		this.gate_names = new String[]{"And","Full-Adder","Half-Adder","Not","Or","Xnor", "Xor"};
 		this.gateSelector = new JComboBox<>(gate_names);
-		//gateSelector.addActionListener(gateSelector);
+		gateSelector.addActionListener(this);
 		
 		
-		this.inputPinA = new JCheckBox("Pin A");
-		inputPinA.addChangeListener(this); //toda vez que eu mudar o estado desse checkbox, ele vai ''ouvir''.
+		this.SwitchA = new JCheckBox("Pin A");
 		
-		this.inputPinB = new JCheckBox("Pin B");
-		inputPinA.addChangeListener(this);
+		SwitchA.addChangeListener(this); //toda vez que eu mudar o estado desse checkbox, ele vai ''ouvir''.
+		
+		this.SwitchB = new JCheckBox("Pin B");
+		
+		SwitchB.addChangeListener(this);
 
-		this.inputPinC = new JCheckBox("Pin C (Adders Only)");
-		inputPinA.addChangeListener(this);
+		this.SwitchC = new JCheckBox("Pin C");
 		
-		this.outputPin = new JCheckBox("Out");
-		outputPin.setEnabled(false);
+		SwitchC.addChangeListener(this);
 		
-		this.outputPinCa = new JCheckBox("Carry (Adders only)");
-		outputPinCa.setEnabled(false);
+		this.Lamp = new JCheckBox("Out");
+		Lamp.setEnabled(false);
+		
+		this.LampCa = new JCheckBox("Carry (Adders only)");
+		LampCa.setEnabled(false);
 		
 		this.setPreferredSize(new Dimension(300, 150));
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		
 		
-		this.add(this.inputPinA);
-		this.add(this.inputPinB);
-		this.add(this.inputPinC);
-		this.add(this.outputPin);
-		this.add(this.outputPinCa);
+		this.add(this.SwitchA);
+		this.add(this.SwitchB);
+		this.add(this.SwitchC);
+		this.add(this.Lamp);
+		this.add(this.LampCa);
 		this.add(this.gateSelector);
 		
-		this.listeners = new ArrayList<>(); //cria lista dos ouvidores...
+		this.changeListeners = new ArrayList<>(); //cria lista dos ouvidores...
 
 		
+	}
+	
+	
+	public void enableSwitchA() {
+		SwitchA.setEnabled(true);
+	}
+	public void enableSwitchB() {
+		SwitchB.setEnabled(true);
+	}
+	public void enableSwitchC() {
+		SwitchC.setEnabled(true);
+	}
+	public void disableSwitchA() {
+		SwitchA.setEnabled(false);
+	}
+	public void disableSwitchB() {
+		SwitchB.setEnabled(false);
+	}
+	public void disableSwitchC() {
+		SwitchC.setEnabled(false);
 	}
 	
 	public void clearFields() {
-		inputPinA.setSelected(false);
-		inputPinB.setSelected(false);
-		inputPinC.setSelected(false);
-		outputPin.setSelected(false);
-		outputPinCa.setSelected(false);
+		SwitchA.setSelected(false);
+		SwitchB.setSelected(false);
+		SwitchC.setSelected(false);
+		Lamp.setSelected(false);
+		LampCa.setSelected(false);
 	}
 	
-	public void setOutputPin(boolean b) {
-		outputPin.setSelected(b);
+	public void setLamp(boolean b) {
+		Lamp.setSelected(b);
 	}
-	public void setOutputPinCa(boolean b) {
-		outputPinCa.setSelected(b);
-	}
-	
-	public void addMainListener(MainListener listener) {
-		listeners.add(listener); //adiciona um ouvidor na lista
+	public void setLampCa(boolean b) {
+		LampCa.setSelected(b);
 	}
 	
+	public void addMainChangeListener(MainChangeListener listener) {
+		changeListeners.add(listener); //adiciona um ouvidor na lista
+	}
+	public void addMainActionListener(MainActionListener listener) {
+		actionListeners.add(listener);
+		
+	}
 	@Override
 	public void stateChanged(ChangeEvent event) {
 		String gate = (String) this.gateSelector.getSelectedItem();
-		boolean stateA = (boolean) this.inputPinA.isSelected(); //vai me devolver o estado do pinA
-		boolean stateB = (boolean) this.inputPinB.isSelected(); // " pinB
-		boolean stateC = (boolean) this.inputPinC.isSelected(); // " pinC
+		boolean stateA = (boolean) this.SwitchA.isSelected(); //vai me devolver o estado do pinA
+		boolean stateB = (boolean) this.SwitchB.isSelected(); // " pinB
+		boolean stateC = (boolean) this.SwitchC.isSelected(); // " pinC
 
-		for(MainListener listener: listeners) { //para todos os ouvidores da lista...
+		for(MainChangeListener listener: changeListeners) { //para todos os ouvidores da lista...
 			listener.stateChanged(stateA, stateB, stateC, gate); //...conta para cada um os estados desses elementos
 		}
 		
 		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		String gate = (String) this.gateSelector.getSelectedItem();
+		
+		for(MainActionListener listener: actionListeners) { //para todos os ouvidores da lista...
+			listener.actionPerformed(gate); //...conta para cada um os estados desses elementos
+		}
 	}
 
 }
