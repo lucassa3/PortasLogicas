@@ -31,13 +31,11 @@ public class Screen extends JPanel implements ChangeListener, ActionListener {
 	private List<MainChangeListener> changeListeners;
 	private List<MainActionListener> actionListeners;
 	
-	AndGateDrawer ands;
+
 	
 	public Screen () {
 		this.setPreferredSize(new Dimension(600,300));
-		this.setLayout(null);
-		
-		Graphics g = getGraphics();
+		this.setLayout(null); // Todas as posições precisam ser declaradas
 		
 		
 		this.gate_names = new String[]{"And","Full-Adder","Half-Adder","Not","Or","Xnor", "Xor"};
@@ -124,11 +122,43 @@ public class Screen extends JPanel implements ChangeListener, ActionListener {
 		actionListeners.add(listener);
 	}
 	
+	//
 	
+	
+	AndGateDrawer and =  new AndGateDrawer();
+	FullAdderGateDrawer fa = new FullAdderGateDrawer();
+	HalfAdderGateDrawer ha = new HalfAdderGateDrawer();
+	NotGateDrawer not = new NotGateDrawer();
+	OrGateDrawer or = new OrGateDrawer();
+	XnorGateDrawer xnor = new XnorGateDrawer();
+	XorGateDrawer xor = new XorGateDrawer();
 
-		ands = new AndGateDrawer();
-
-
+	public void paintComponent(Graphics g) {
+		String gatess = (String) this.gateSelector.getSelectedItem();	
+		
+		if (gatess=="And") {
+			and.paint(g);
+		}
+		if (gatess=="Full-Adder") {
+			fa.paint(g);
+		}
+		if (gatess=="Half-Adder") {
+			ha.paint(g);
+		}
+		if (gatess=="Not") {
+			not.paint(g);
+		}
+		if (gatess=="Or") {
+			or.paint(g);
+		}
+		if (gatess=="Xnor") {
+			xnor.paint(g);
+		}
+		if (gatess=="Xor") {
+			xor.paint(g);
+		}
+		repaint();
+	}
 	
 	
 	@Override
