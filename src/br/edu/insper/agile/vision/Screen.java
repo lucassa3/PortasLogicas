@@ -28,6 +28,7 @@ public class Screen extends JPanel implements ChangeListener, ActionListener {
 	private JCheckBox Lamp;
 	private JCheckBox LampCa;
 	
+	
 	private List<MainChangeListener> changeListeners;
 	private List<MainActionListener> actionListeners;
 	
@@ -157,7 +158,7 @@ public class Screen extends JPanel implements ChangeListener, ActionListener {
 		if (gatess=="Xor") {
 			xor.paint(g);
 		}
-		repaint();
+	
 	}
 	
 	
@@ -181,6 +182,7 @@ public class Screen extends JPanel implements ChangeListener, ActionListener {
 		for(MainActionListener listener: actionListeners) { //para todos os ouvidores da lista...
 			listener.actionPerformed(gate); //...ATUALIZA A FUNCAO QUE conta para cada um os estados desses elementos
 		}
+		repaint();
 	}
 
 }
